@@ -1,0 +1,36 @@
+{
+  "stonesPerPlayer": 4,
+  "board": {
+    "width": 1400,
+    "height": 600
+  },
+  "target": {
+    "x": 1150,
+    "y": 300,
+    "radius": 90,
+    "rings": 4
+  },
+  "startZone": {
+    "x": 150,
+    "y": 300
+  },
+  "stone": {
+    "radius": 22,
+    "frictionAir": 0.018,
+    "restitution": 0.75,
+    "density": 0.004
+  },
+  "maxShotForce": 0.028,
+  "minShotForce": 0.003,
+  "maxPullDistance": 150,
+  "colors": {
+    "player1": "#e74c3c",
+    "player2": "#3498db",
+    "target1": "#e74c3c",
+    "target2": "#ffffff",
+    "target3": "#e74c3c",
+    "target4": "#3498db",
+    "ice": "#d6eaf8",
+    "iceLines": "#a9cce3"
+  }
+}

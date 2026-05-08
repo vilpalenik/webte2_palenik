@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curling</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="bg-ice"></div>
+
+<!--menu -->
+<div id="screen-menu" class="screen active">
+  <div class="menu-logo">CURLING</div>
+  <div class="menu-sub">Online hra pre 2 hráčov</div>
+  <div class="menu-btns">
+    <button class="btn btn-primary" id="btn-play">Hrať</button>
+    <button class="btn btn-secondary" id="btn-rules">Pravidlá</button>
+  </div>
+</div>
+
+<!-- join game -->
+<div id="screen-join" class="screen">
+  <div class="panel">
+    <div class="panel-title">Prihlásiť sa</div>
+    <div class="input-group">
+      <label for="input-name">Nick</label>
+      <input type="text" id="input-name" class="input-text"
+             placeholder="Napr. Thor_258" maxlength="20" autocomplete="off" />
+    </div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-secondary btn-sm" id="btn-join-back" style="flex:1">Späť</button>
+      <button class="btn btn-primary" id="btn-join-submit" style="flex:2">Pripojiť</button>
+    </div>
+  </div>
+</div>
+
+<!-- lobby -->
+<div id="screen-waiting" class="screen">
+  <div class="panel" style="text-align:center;">
+    <div class="panel-title">Lobby</div>
+    <div class="waiting-spinner"></div>
+    <div class="waiting-text">
+      Hľadám súpera…<br/>
+      <span id="waiting-name" style="color:var(--ice);font-weight:600;"></span><br/>
+      <small style="opacity:0.6;margin-top:8px;display:block;">Čakám na pripojenie druhého hráča...</small>
+    </div>
+    <button class="btn btn-secondary btn-sm" id="btn-waiting-cancel" style="margin-top:28px;width:100%">Zrušiť</button>
+  </div>
+</div>
+
+<!-- rules -->
+<div id="screen-rules" class="screen">
+  <div class="panel">
+    <div class="panel-title">Pravidlá</div>
+    <div class="rules-text">
+      <h3>Cieľ hry a pravidlá</h3>
+      Hodiť čo najviac kameňov čo najbližšie k stredu terča.
+      Vyhráva hráč, ktorého kameň je po odohraní všetkých kameňov najbližšie k stredu.
+      
+      Hráči sa striedajú po jednom výstrele. Po reštarte hry sa poradie hráčov vymení.
+
+      <h3>Ovládanie</h3>
+      Klikni na kameň na štartovacej pozícii a ťahaj myšou <strong>smerom od dozadu</strong>.
+      Čím ďalej ťaháš, tým rýchlejšie kameň pôjde.
+
+      <h3>Pauza</h3>
+      Ktorýkoľvek hráč môže dať kedykoľvek pauzu. Pauzu môže zrušiť ktorýkoľvek hráč.
+
+      <h3>Reštart</h3>
+      Po skončení hry, alebo aj počas nej, môžeš navrhnúť reštart.
+      Hra sa reštartuje po súhlase druhého hráča.
+    </div>
+    <button class="btn btn-secondary btn-sm" id="btn-rules-back" style="margin-top:28px;width:100%">Späť</button>
+  </div>
+</div>
+
+<!-- game -->
+<div id="screen-game" class="screen">
+  <div id="game-hud">
+    <div class="hud-player p1" id="hud-p1">
+      <div class="hud-avatar p1" id="hud-avatar-p1">1</div>
+      <div class="hud-info">
+        <div class="hud-name" id="hud-name-p1">Hráč 1</div>
+        <div class="stone-dots" id="dots-p1"></div>
+      </div>
+    </div>
+    <div class="hud-center">
+      <div class="hud-status" id="hud-status">—</div>
+      <div class="hud-turn-indicator" id="hud-turn">—</div>
+      <div class="hud-btn-row">
+        <button class="btn btn-secondary btn-sm" id="btn-pause">⏸ Pauza</button>
+        <button class="btn btn-secondary btn-sm" id="btn-restart-req">↺ Reštart</button>
+      </div>
+    </div>
+    <div class="hud-player p2" id="hud-p2">
+      <div class="hud-info">
+        <div class="hud-name" id="hud-name-p2">Hráč 2</div>
+        <div class="stone-dots" id="dots-p2"></div>
+      </div>
+      <div class="hud-avatar p2" id="hud-avatar-p2">2</div>
+    </div>
+  </div>
+
+  <div id="canvas-wrapper">
+    <canvas id="game-canvas"></canvas>
+    <div id="overlay">
+      <div id="overlay-box">
+        <div id="overlay-title">—</div>
+        <div id="overlay-body"></div>
+        <div id="overlay-btns"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- toast -->
+<div id="toast"></div>
+
+<!-- Matter.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
