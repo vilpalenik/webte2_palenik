@@ -2,7 +2,7 @@
 
 ## Použité externé API
 
-Open-Meteo | https://api.open-meteo.com | Aktuálna predpoveď počasia
+Open-Meteo | https://api.open-meteo.com | Aktuálna predpoveď počasia\n
 Frankfurter | https://api.frankfurter.app | Aktuálne kurzy mien
 GeoNames Flags | https://www.geonames.org/flags | Vlajky krajín
 
