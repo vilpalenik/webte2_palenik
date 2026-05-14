@@ -2,9 +2,11 @@
 
 ## Použité externé API
 
-Open-Meteo | https://api.open-meteo.com | Aktuálna predpoveď počasia\n
-Frankfurter | https://api.frankfurter.app | Aktuálne kurzy mien
-GeoNames Flags | https://www.geonames.org/flags | Vlajky krajín
+| API | URL | Účel |
+|-----|-----|------|
+| Open-Meteo | https://api.open-meteo.com | Aktuálna predpoveď počasia |
+| Frankfurter | https://api.frankfurter.app | Aktuálne kurzy mien voči EUR |
+| GeoNames Flags | https://www.geonames.org/flags | Vlajky krajín podľa ISO kódu |
 
 ## Postup nasadenia
 
@@ -33,7 +35,7 @@ npm run build
 ```
 
 ### Nginx zmena konfigurácie
-
+```nginx
 location /zadanie_4/api/ {
     rewrite ^/zadanie_4/api/(.*)$ /api/$1 break;
     fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
@@ -55,3 +57,4 @@ location /zadanie_4/ {
     index index.html;
     try_files $uri $uri/ index.html;
 }
+```
