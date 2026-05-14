@@ -25,7 +25,7 @@ export default function App() {
           Kam na dovolenku?
         </Link>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
-          <Link to="/" style={{ color: 'rgba(255,255,255,0.85)', textDecoration: 'none' }}>Hľadať</Link>
+          <Link to="/" style={{ color: 'rgba(255,255,255,0.85)', textDecoration: 'none' }}>Vyhľadávanie</Link>
           <Link to="/stats" style={{ color: 'rgba(255,255,255,0.85)', textDecoration: 'none' }}>Štatistiky</Link>
         </div>
       </nav>
