@@ -3,8 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Destination;
 use App\Models\Search;
+use App\Models\SearchPreference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+
+use Illuminate\Support\Facades\Log;
 
 class DestinationController extends Controller
 {
@@ -24,7 +27,7 @@ class DestinationController extends Controller
             $reasons = [];
             $climate = $dest->climates->first();
 
-            // Typy
+            // types
             foreach ($types as $type) {
                 if (in_array($type, $dest->types)) {
                     $score += 2;
@@ -40,7 +43,7 @@ class DestinationController extends Controller
                 }
             }
 
-            // Teplota
+            // temperature
             if ($climate) {
                 $avg      = $climate->temp_avg;
                 $tempMatch = match($temp) {
@@ -53,12 +56,12 @@ class DestinationController extends Controller
                     $score += 2;
                     $reasons[] = "✓ Priemerná teplota {$avg}°C";
                 } else {
-                    // Nesedí teplota — znížime skóre ale nevylučujeme
+                    // temp doesn't match, lower score but don't exclude destination
                     $score -= 1;
                 }
             }
 
-            // Vzdialenosť
+            // distance
             if ($distance == 0 || $dest->flight_hours_from_vienna <= $distance) {
                 $score += 1;
                 $reasons[] = "✓ Let z Viedne: {$dest->flight_hours_from_vienna}h";
@@ -66,7 +69,7 @@ class DestinationController extends Controller
                 return null;
             }
 
-            // Musí mať aspoň nejakú zhodu
+            // score cannot be negative
             if ($score <= 0) return null;
 
             return [
@@ -87,10 +90,28 @@ class DestinationController extends Controller
             ];
         })->filter()->sortByDesc('score')->values();
 
-        // Zaznamenaj vyhľadávania top výsledkov
+        // store search preferences and top results for stats
         foreach ($results->take(10) as $r) {
             Search::create(['destination_id' => $r['id'], 'searched_at' => now()]);
         }
+
+        foreach ($types as $type) {
+            SearchPreference::create([
+                'type' => $type,
+                'category' => 'vacation_type',
+                'searched_at' => now(),
+            ]);
+        }
+        if ($temp !== 'jedno') {
+            SearchPreference::create([
+                'type' => $temp,
+                'category' => 'temperature',
+                'searched_at' => now(),
+            ]);
+        }
+
+        Log::info('types: ' . json_encode($types));
+        Log::info('temp: ' . $temp);
 
         return response()->json($results);
     }
@@ -100,7 +121,7 @@ class DestinationController extends Controller
         $dest    = Destination::with('climates')->findOrFail($id);
         $climate = $dest->climates;
 
-        // Aktuálna predpoveď počasia z Open-Meteo
+        // current weather from Open-Meteo
         $weather = null;
         try {
             $res = Http::get('https://api.open-meteo.com/v1/forecast', [
@@ -114,7 +135,7 @@ class DestinationController extends Controller
             $weather = null;
         }
 
-        // Kurz meny z Frankfurter
+        // exchange rate from Frankfurter API
         $exchangeRate = null;
         if ($dest->currency_code !== 'EUR') {
             try {
@@ -146,6 +167,7 @@ class DestinationController extends Controller
         ]);
     }
 
+    // compare multiple destinations
     public function compare(Request $request)
     {
         $ids  = $request->input('ids', []);

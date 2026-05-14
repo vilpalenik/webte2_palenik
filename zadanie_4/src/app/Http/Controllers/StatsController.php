@@ -23,15 +23,15 @@ class StatsController extends Controller
 
     public function index()
     {
-        // Celkový počet návštev
+        // total visits
         $total = Visit::count();
 
-        // Unikátne návštevy (1 IP za 60 minút)
+        // unique visitors in last 60 minutes
         $unique = Visit::where('visited_at', '>=', now()->subMinutes(60))
             ->distinct('ip_hash')
             ->count('ip_hash');
 
-        // Návštevnosť podľa dennej doby
+        // visits by time of day
         $byHour = Visit::selectRaw('HOUR(visited_at) as hour, COUNT(*) as count')
             ->groupBy('hour')
             ->get();
@@ -50,7 +50,7 @@ class StatsController extends Controller
             else                           $timeSlots['0-6']   += $row->count;
         }
 
-        // Vyhľadávané destinácie
+        // seared destinations
         $searches = Search::select('destination_id', DB::raw('COUNT(*) as count'))
             ->with('destination')
             ->groupBy('destination_id')
@@ -62,11 +62,18 @@ class StatsController extends Controller
                 'count'       => $s->count,
             ]);
 
+        // search preferences
+        $preferences = \App\Models\SearchPreference::select('type', 'category', DB::raw('COUNT(*) as count'))
+            ->groupBy('type', 'category')
+            ->get();
+
+
         return response()->json([
             'total'      => $total,
             'unique'     => $unique,
             'time_slots' => $timeSlots,
             'searches'   => $searches,
+            'preferences' => $preferences,
         ]);
     }
 }

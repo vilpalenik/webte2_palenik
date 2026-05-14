@@ -8,11 +8,11 @@ const MONTH_NAMES = [
 ]
 
 const TYPE_LABELS = {
-  more: '🏖️ More a pláž',
-  hory: '🏔️ Hory a príroda',
-  historicke: '🏛️ Historické mestá',
-  mestsky: '🏙️ Mestský výlet',
-  aktivita: '🧗 Aktivity a dobrodružstvo',
+  more: 'More a pláž',
+  hory: 'Hory a príroda',
+  historicke: 'Historické mestá',
+  mestsky: 'Mestský výlet',
+  aktivita: 'Aktivity a dobrodružstvo',
 }
 
 export default function DetailPage() {
@@ -43,7 +43,7 @@ export default function DetailPage() {
 
       <div style={{ background: 'white', borderRadius: '16px', padding: '2rem', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
 
-        {/* Hlavička */}
+        {/* header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
           <img src={`https://www.geonames.org/flags/x/${dest.country_code}.gif`} alt="" style={{ height: '32px' }} />
           <div>
@@ -52,7 +52,7 @@ export default function DetailPage() {
           </div>
         </div>
 
-        {/* Typy */}
+        {/* types */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
           {dest.types.map(t => (
             <span key={t} style={{ background: '#e8f0fe', color: '#1a73e8', padding: '0.3rem 0.8rem', borderRadius: '999px', fontSize: '0.85rem' }}>
@@ -63,8 +63,8 @@ export default function DetailPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '1.5rem 0' }} />
 
-        {/* Počasie v zvolenom mesiaci */}
-        <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>🌡️ Počasie v {MONTH_NAMES[month - 1]}</h2>
+        {/* weather in given month */}
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Počasie v {MONTH_NAMES[month - 1]}</h2>
         {monthClimate ? (
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
             {[
@@ -78,23 +78,23 @@ export default function DetailPage() {
               </div>
             ))}
           </div>
-        ) : <p style={{ color: '#718096' }}>Klimatické dáta nie sú dostupné</p>}
+        ) : <p style={{ color: '#718096' }}>Dáta nie sú dostupné</p>}
 
-        {/* Aktuálna predpoveď */}
+        {/* weather forecast */}
         {dest.weather && (
           <>
-            <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>⛅ Aktuálne počasie</h2>
+            <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>Aktuálne počasie</h2>
             <div style={{ background: '#f7fafc', borderRadius: '10px', padding: '1rem', marginBottom: '1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-              <span>🌡️ <strong>{dest.weather.temperature_2m}°C</strong></span>
-              <span>💨 <strong>{dest.weather.windspeed_10m} km/h</strong></span>
+              <span>Teplota: <strong>{dest.weather.temperature_2m}°C</strong></span>
+              <span>Sila vetra: <strong>{dest.weather.windspeed_10m} km/h</strong></span>
             </div>
           </>
         )}
 
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '1.5rem 0' }} />
 
-        {/* Mena */}
-        <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>💶 Mena</h2>
+        {/* currency */}
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>Mena</h2>
         <p style={{ margin: 0, color: '#2d3748' }}>
           <strong>{dest.currency}</strong>
           {dest.exchange_rate
@@ -104,8 +104,8 @@ export default function DetailPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '1.5rem 0' }} />
 
-        {/* Prečo práve teraz — generovaný text */}
-        <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>✨ Prečo práve teraz?</h2>
+        {/* generate description text */}
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>Prečo vycestovať práve teraz?</h2>
         <p style={{ color: '#2d3748', lineHeight: 1.7, margin: 0 }}>
           {generateRecommendationText(dest, month, monthClimate)}
         </p>
@@ -134,7 +134,7 @@ function generateRecommendationText(dest, month, climate) {
     text += `. Destinácia ponúka ${typeLabels.join(', ').toLowerCase()}`
   }
 
-  text += `. Let z Viedne trvá len ${dest.flight_hours_from_vienna} hodín`
+  text += `. Let z Viedne trvá ${dest.flight_hours} hodín`
 
   if (dest.currency !== 'EUR' && dest.exchange_rate) {
     text += ` a miestna mena ${dest.currency} je výhodná pre európskych cestovateľov`

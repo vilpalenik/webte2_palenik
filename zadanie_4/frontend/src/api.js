@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.PROD 
+    ? 'https://node75.webte.fei.stuba.sk/zadanie_4/api'
+    : '/api',
 })
 
 export const searchDestinations = (params) => api.post('/search', params)

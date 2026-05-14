@@ -22,7 +22,7 @@ export default function App() {
         boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
       }}>
         <Link to="/" style={{ color: 'white', textDecoration: 'none', fontSize: '1.4rem', fontWeight: 'bold' }}>
-          ✈️ Kam na dovolenku?
+          Kam na dovolenku?
         </Link>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
           <Link to="/" style={{ color: 'rgba(255,255,255,0.85)', textDecoration: 'none' }}>Hľadať</Link>

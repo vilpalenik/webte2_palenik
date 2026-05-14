@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { searchDestinations } from '../api'
 
 const TYPES = [
-  { value: 'more',       label: 'More' },
-  { value: 'hory',       label: 'Hory' },
+  { value: 'more',       label: 'More a pláž' },
+  { value: 'hory',       label: 'Hory a príroda' },
   { value: 'historicke', label: 'Historické mestá' },
   { value: 'mestsky',    label: 'Mestský výlet' },
-  { value: 'aktivita',   label: 'Aktivity' },
+  { value: 'aktivita',   label: 'Aktivity a dobrodružstvo' },
 ]
 
 const MONTHS = [
@@ -60,26 +60,25 @@ export default function HomePage() {
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
 
-      {/* HERO */}
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#1a202c', margin: 0 }}>
-          Čo od dovolenky chceš?
+          Kam na dovolenku?
         </h1>
         <p style={{ color: '#718096', marginTop: '0.5rem' }}>
-          Vyplň formulár a nájdeme ti ideálnu destináciu
+          Vyplň formulár a nájdi ideálnu destináciu
         </p>
       </div>
 
-      {/* FORMULÁR */}
+      {/* form */}
       <div style={{
         background: 'white', borderRadius: '16px',
         padding: '2rem', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
         marginBottom: '2rem'
       }}>
 
-        {/* Mesiac */}
+        {/* month */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <label style={labelStyle}>📅 Kedy chceš cestovať?</label>
+          <label style={labelStyle}>Kedy chceš ísť?</label>
           <select
             value={form.month}
             onChange={e => setForm(f => ({ ...f, month: parseInt(e.target.value) }))}
@@ -91,9 +90,9 @@ export default function HomePage() {
           </select>
         </div>
 
-        {/* Typy */}
+        {/* types */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <label style={labelStyle}>🎯 Čo hľadáš? (môžeš vybrať viac)</label>
+          <label style={labelStyle}>Čo očakávaš od dovolenky? (môžeš vybrať viac)</label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.5rem' }}>
             {TYPES.map(t => (
               <button
@@ -117,15 +116,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Teplota */}
+        {/* temperature */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <label style={labelStyle}>🌡️ Preferovaná teplota</label>
+          <label style={labelStyle}>Ideálna teplota</label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.5rem' }}>
             {[
-              { value: 'horuco',   label: '🔥 Horúco (30°C+)' },
-              { value: 'teplo',    label: '☀️ Teplo (20–29°C)' },
-              { value: 'prijemne', label: '🌤️ Príjemne (10–19°C)' },
-              { value: 'jedno',    label: '🤷 Jedno mi to' },
+              { value: 'horuco',   label: 'Horúco (30°C+)' },
+              { value: 'teplo',    label: 'Teplo (20–29°C)' },
+              { value: 'prijemne', label: 'Príjemne (10–19°C)' },
+              { value: 'jedno',    label: 'Jedno mi to' },
             ].map(t => (
               <button
                 key={t.value}
@@ -148,9 +147,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Vzdialenosť */}
+        {/* distance */}
         <div style={{ marginBottom: '2rem' }}>
-          <label style={labelStyle}>✈️ Vzdialenosť z Viedne</label>
+          <label style={labelStyle}>Vzdialenosť z Viedne</label>
           <select
             value={form.distance}
             onChange={e => setForm(f => ({ ...f, distance: parseFloat(e.target.value) }))}
@@ -172,11 +171,11 @@ export default function HomePage() {
             fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer',
           }}
         >
-          {loading ? 'Hľadám...' : '🔍 Nájsť destinácie'}
+          {loading ? 'Hľadám...' : 'Hľadať'}
         </button>
       </div>
 
-      {/* VÝSLEDKY */}
+      {/* results */}
       {results !== null && (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -193,7 +192,7 @@ export default function HomePage() {
                   cursor: 'pointer', fontWeight: 600,
                 }}
               >
-                ⚖️ Porovnať vybrané
+                Porovnať destinácie
               </button>
             )}
             {selected.length === 1 && (

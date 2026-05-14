@@ -8,11 +8,11 @@ const MONTH_NAMES = [
 ]
 
 const TYPE_LABELS = {
-  more: '🏖️ More a pláž',
-  hory: '🏔️ Hory a príroda',
-  historicke: '🏛️ Historické mestá',
-  mestsky: '🏙️ Mestský výlet',
-  aktivita: '🧗 Aktivity a dobrodružstvo',
+  more: 'More a pláž',
+  hory: 'Hory a príroda',
+  historicke: 'Historické mestá',
+  mestsky: 'Mestský výlet',
+  aktivita: 'Aktivity a dobrodružstvo',
 }
 
 export default function ComparePage() {
@@ -65,7 +65,7 @@ export default function ComparePage() {
       b: b.climate ? `${b.climate.temp_max}°C` : '–',
     },
     {
-      label: 'Typy',
+      label: 'Tagy',
       a: <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
         {a.types.map(t => <span key={t} style={tagStyle}>{TYPE_LABELS[t] || t}</span>)}
       </div>,
@@ -81,7 +81,7 @@ export default function ComparePage() {
         ← Späť
       </button>
 
-      <h1 style={{ marginBottom: '1.5rem' }}>⚖️ Porovnanie destinácií</h1>
+      <h1 style={{ marginBottom: '1.5rem' }}>Porovnanie destinácií</h1>
 
       <div style={{ background: 'white', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
